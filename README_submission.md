@@ -1,0 +1,7 @@
+# Lab 17 Submission
+
+Trong practice set, long-term memory là layer quan trọng nhất vì E02, E03, E08 và E09 đều cần recall qua session; E07 cũng cần long-term để lấy preference Python. Context Block của Zep cung cấp user-scoped context, graph search và provenance đã được quản lý sẵn, nhưng phụ thuộc cloud và có latency. Redis + Qdrant local cho quyền kiểm soát, chi phí thấp và có thể nhanh hơn, nhưng phải tự xây ingestion, ranking, scope, recency và deletion. Guardrail chống memory poisoning gồm memory opt-in, namespace theo user, provenance/timestamp/confidence/validity, review các preference quan trọng, redact PII và verify deletion; heartbeat không được tự cấp quyền mới.
+
+Student đạt 11/11 case (100.0%), nên không có layer nào có hit rate thấp hơn: short-term, long-term, episodic và semantic đều đạt các case practice của mình. E08 retrieve nhiều token nhất với 1489 token; long-term context dài vì gồm user summary, facts và episode evidence. E07 là mixed case, cần kết hợp long-term để lấy `Python` và semantic để lấy `Idempotency-Key`. Memory-enabled giảm trung bình 10.7% token so với full source context, trong khi no-memory giảm 81.8% nhưng chỉ đạt 2/11; lấy ít hoặc không lấy context không đồng nghĩa với retrieval đúng.
+
+Ở E08, thông tin mới và đúng scope của `BLUEBIRD-42` (`TypeScript` + `NestJS`) được ưu tiên hơn preference cũ. Ở E10, compaction giữ durable constraint `REVIEW-DEADLINE-1600`, `Friday` và `16:00` trong khi chỉ giữ một số lượt gần nhất, nên không cần giữ toàn bộ transcript.
